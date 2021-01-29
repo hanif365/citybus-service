@@ -79,12 +79,12 @@
                 <div class="input-group f-class">
                     <div>
                         <label for="">Economy ($100)</label>
-                        <input class="inp-style inp-width" type="number" name="ticket-count" value="0">
+                        <input id="ticket-count-eco" class="inp-style inp-width" type="number" name="ticket-count" value="0">
                     </div>
                     <div class="plus-minus-btn">
                         <!-- <p> <span>+</span> <span>-</span> </p> -->
-                        <button><i class="fas fa-plus btn"></i></button>
-                        <button><i class="fas fa-minus btn"></i></button>
+                        <button id="ticket-eco-increse" type="button"><i class="fas fa-plus btn"></i></button>
+                        <button id="ticket-eco-decrese" type="button"><i class="fas fa-minus btn"></i></button>
                     </div>
                 </div>
 
@@ -150,7 +150,34 @@
             console.log(fastTotal);
         }
 
-        /* first functional
+
+        //second section which is optimize
+        document.getElementById('ticket-eco-increse').addEventListener('click', function(){
+            var ticketInput = document.getElementById('ticket-count-eco');
+            var ticketCount = parseInt(ticketInput.value);
+            var ticketNewCount = ticketCount + 1;
+            ticketInput.value = ticketNewCount;
+            console.log(ticketNewCount);
+
+            const ecoUnitPrice = 100;
+            var ecoTotal = ecoUnitPrice * ticketNewCount;
+            console.log(ecoTotal);
+        })
+
+        document.getElementById('ticket-eco-decrese').addEventListener('click', function(){
+            var ticketInput = document.getElementById('ticket-count-eco');
+            var ticketCount = parseInt(ticketInput.value);
+            var ticketNewCount = ticketCount - 1;
+            ticketInput.value = ticketNewCount;
+
+            const ecoUnitPrice = 100;
+            var ecoTotal = ecoUnitPrice * ticketNewCount;
+            console.log(ecoTotal);
+        })
+
+        
+
+        /* first section which is optimize
 
         document.getElementById('ticket-increse').addEventListener('click', function(){
             var ticketInput = document.getElementById('ticket-count');
