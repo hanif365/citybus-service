@@ -83,8 +83,8 @@
                     </div>
                     <div class="plus-minus-btn">
                         <!-- <p> <span>+</span> <span>-</span> </p> -->
-                        <button id="ticket-eco-increse" type="button"><i class="fas fa-plus btn"></i></button>
-                        <button id="ticket-eco-decrese" type="button"><i class="fas fa-minus btn"></i></button>
+                        <button onclick="handleEcoTicketChange(true)" type="button"><i class="fas fa-plus btn"></i></button>
+                        <button onclick="handleEcoTicketChange(false)" type="button"><i class="fas fa-minus btn"></i></button>
                     </div>
                 </div>
 
@@ -150,8 +150,33 @@
             console.log(fastTotal);
         }
 
+        // document.getElementById('ticket-eco-increse').addEventListener('click', function(){
+        //     handleEcoTicketChange(true);
+        // })
 
-        //second section which is optimize
+        // document.getElementById('ticket-eco-decrese').addEventListener('click', function(){
+        //     handleEcoTicketChange(false);
+        // })
+
+        function handleEcoTicketChange(isIncrese){
+            var ticketInput = document.getElementById('ticket-count-eco');
+            var ticketCount = parseInt(ticketInput.value);
+            var ticketNewCount = ticketCount;
+            if(isIncrese == true){
+                ticketNewCount = ticketCount + 1;
+            }
+            else if(isIncrese == false && ticketCount > 0){
+                ticketNewCount = ticketCount - 1;
+            }
+            ticketInput.value = ticketNewCount;
+
+            const ecoUnitPrice = 100;
+            var ecoTotal = ecoUnitPrice * ticketNewCount;
+            console.log(ecoTotal);
+        }
+
+
+        /*second section which is optimize
         document.getElementById('ticket-eco-increse').addEventListener('click', function(){
             var ticketInput = document.getElementById('ticket-count-eco');
             var ticketCount = parseInt(ticketInput.value);
@@ -174,6 +199,8 @@
             var ecoTotal = ecoUnitPrice * ticketNewCount;
             console.log(ecoTotal);
         })
+
+        */
 
         
 
