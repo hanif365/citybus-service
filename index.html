@@ -67,12 +67,13 @@
                 <div class="input-group f-class">
                     <div>
                         <label for="">First Class ($150)</label>
-                        <input id="ticket-count" class="inp-style inp-width" type="number" name="ticket-count" value="0">
+                        <input id="ticket-count" class="inp-style inp-width" type="number" name="ticket-count"
+                            value="0">
                     </div>
                     <div class="plus-minus-btn">
                         <!-- <p>+ - + -</p> -->
-                        <button id="ticket-increse" type="button"><i class="fas fa-plus btn"></i></button>
-                        <button id="ticket-decrese" type="button"><i class="fas fa-minus btn"></i></button>
+                        <button onclick="handleTicketChange(true)" type="button"><i class="fas fa-plus btn"></i></button>
+                        <button onclick="handleTicketChange(false)" type="button"><i class="fas fa-minus btn"></i></button>
                     </div>
                 </div>
                 <div class="input-group f-class">
@@ -123,6 +124,34 @@
     <!--Thank You-->
 
     <script>
+        // document.getElementById('ticket-increse').addEventListener('click', function () {
+        //     handleTicketChange(true);
+        // })
+
+        // document.getElementById('ticket-decrese').addEventListener('click', function () {
+        //     handleTicketChange(false);
+        // })
+
+        function handleTicketChange(isIncrese) {
+            var ticketInput = document.getElementById('ticket-count');
+            var ticketCount = parseInt(ticketInput.value);
+            // var ticketNewCount = ticketCount - 1;
+            var ticketNewCount = ticketCount;
+            if (isIncrese == true) {
+                ticketNewCount = ticketCount + 1;
+            }
+            else if (isIncrese == false && ticketCount > 0) {
+                ticketNewCount = ticketCount - 1;
+            }
+            ticketInput.value = ticketNewCount;
+
+            var fastUnitPrice = 150;
+            var fastTotal = fastUnitPrice * ticketNewCount;
+            console.log(fastTotal);
+        }
+
+        /* first functional
+
         document.getElementById('ticket-increse').addEventListener('click', function(){
             var ticketInput = document.getElementById('ticket-count');
             var ticketCount = parseInt(ticketInput.value);
@@ -146,6 +175,7 @@
             var fastTotal = fastUnitPrice * ticketNewCount;
             console.log(fastTotal);
         })
+        */
     </script>
 </body>
 
