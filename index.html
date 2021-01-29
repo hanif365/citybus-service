@@ -95,7 +95,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p>$500</p>
+                        <p id="sub-total">$0</p>
                     </div>
                 </div>
 
@@ -104,7 +104,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p>$50</p>
+                        <p id="vat">$0</p>
                     </div>
                 </div>
                 <hr>
@@ -113,7 +113,7 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p>$550</p>
+                        <p id="total-amount">$0</p>
                     </div>
                 </div>
             </div>
@@ -125,6 +125,56 @@
 
     <script>
 
+        function handleTicketChange(ticketQuality, isIncrese){
+            var ticketInput = document.getElementById(ticketQuality + '-ticketcount');
+            var ticketCount = parseInt(ticketInput.value);
+            var ticketNewCount = ticketCount;
+            if(isIncrese == true){
+                ticketNewCount = ticketCount + 1;
+            }
+            else if(isIncrese == false && ticketCount > 0){            
+                ticketNewCount = ticketCount - 1;
+            }
+            ticketInput.value = ticketNewCount;
+
+            // var ticketUnitPrice = 0;
+            // if(ticketQuality == 'firstclass'){
+            //     ticketUnitPrice = 150;
+            // }
+            // else{
+            //     ticketUnitPrice = 100;
+            // }
+            // var ticketTotal = ticketUnitPrice * ticketNewCount;
+            // console.log(ticketTotal);
+            calculateTotal();
+        }
+
+        function calculateTotal(){
+            var firstClassTicketCount = getTicketCount('firstclass');
+            var economicTicketCount = getTicketCount('economy');
+
+            var firstClassUnitTicketPrice = 150;
+            var economicUnitTicketPrice = 100;
+
+
+            var subTotal = (firstClassTicketCount * firstClassUnitTicketPrice) + (economicTicketCount * economicUnitTicketPrice);
+            document.getElementById('sub-total').innerText = '$' + subTotal;
+
+            var vat = Math.round(subTotal * 0.1);
+            document.getElementById('vat').innerText = '$' + vat;
+
+            var total = subTotal + vat;
+            document.getElementById('total-amount').innerText = '$' + total;
+
+
+        }
+        function getTicketCount(ticketClass){
+            var ticketInput = document.getElementById(ticketClass + '-ticketcount');
+            var ticketCount = parseInt(ticketInput.value);
+            return ticketCount;
+        }
+        /* comment out
+        
         function handleTicketChange(ticketQuality, isIncrese){
             var ticketInput = document.getElementById(ticketQuality + '-ticketcount');
             var ticketCount = parseInt(ticketInput.value);
@@ -147,6 +197,8 @@
             var ticketTotal = ticketUnitPrice * ticketNewCount;
             console.log(ticketTotal);
         }
+        */
+
 
         /* Third section which is optimize
         
