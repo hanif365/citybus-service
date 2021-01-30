@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bus Ticket</title>
+    <title>City Bus Service | For Comfortable Journey</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
         rel="stylesheet">
+    <link rel="shortcut icon" href="images/fav-bus.jpeg" type="image/x-icon">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
         integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
@@ -32,7 +33,7 @@
     <main class="main-content container">
 
         <div class="booking-content">
-            <h1>Mega City Bus</h1>
+            <h1>City Bus Service</h1>
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
                 industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
                 scrambled it to make a type specimen book.</p>
@@ -44,12 +45,12 @@
 
             <div class="inputs">
                 <div class="input-group">
-                    <label" for="">From</label>
+                    <label" for="">Journey From</label>
                         <input class="inp-style" type="text" name="" placeholder="Dhaka">
                 </div>
                 <div class="input-group">
-                    <label" for="">From</label>
-                        <input class="inp-style" type="text" name="" placeholder="Chittagone">
+                    <label" for="">Journey To</label>
+                        <input class="inp-style" type="text" name="" placeholder="Pabna">
                 </div>
             </div>
 
@@ -67,8 +68,8 @@
                 <div class="input-group f-class">
                     <div>
                         <label for="">First Class ($150)</label>
-                        <input id="firstclass-ticketcount" class="inp-style inp-width" type="number" name="fastclass-ticketcount"
-                            value="0">
+                        <input id="firstclass-ticketcount" class="inp-style inp-width" name="fastclass-ticketcount"
+                            value="0" type="number" disabled>
                     </div>
                     <div class="plus-minus-btn">
                         <!-- <p>+ - + -</p> -->
@@ -79,7 +80,7 @@
                 <div class="input-group f-class">
                     <div>
                         <label for="">Economy ($100)</label>
-                        <input id="economy-ticketcount" class="inp-style inp-width" type="number" name="ticket-count" value="0">
+                        <input id="economy-ticketcount" class="inp-style inp-width" name="ticket-count" value="0" type="number" disabled>
                     </div>
                     <div class="plus-minus-btn">
                         <!-- <p> <span>+</span> <span>-</span> </p> -->
@@ -117,14 +118,13 @@
                     </div>
                 </div>
             </div>
-            <button class="btn-style">Book Now</button>
+            <button id="order" class="btn-style">Book Now</button>
         </div>
     </main>
 
-    <!--Thank You-->
 
     <script>
-
+        // here, two types of ticket quality, (1) firstclass and (2) economic
         function handleTicketChange(ticketQuality, isIncrese){
             var ticketInput = document.getElementById(ticketQuality + '-ticketcount');
             var ticketCount = parseInt(ticketInput.value);
@@ -146,10 +146,10 @@
             // }
             // var ticketTotal = ticketUnitPrice * ticketNewCount;
             // console.log(ticketTotal);
-            calculateTotal();
+            calculateFare();
         }
 
-        function calculateTotal(){
+        function calculateFare(){
             var firstClassTicketCount = getTicketCount('firstclass');
             var economicTicketCount = getTicketCount('economy');
 
@@ -166,13 +166,15 @@
             var total = subTotal + vat;
             document.getElementById('total-amount').innerText = '$' + total;
 
-
         }
         function getTicketCount(ticketClass){
             var ticketInput = document.getElementById(ticketClass + '-ticketcount');
             var ticketCount = parseInt(ticketInput.value);
             return ticketCount;
         }
+
+
+
         /* comment out
         
         function handleTicketChange(ticketQuality, isIncrese){
