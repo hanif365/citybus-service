@@ -33,10 +33,9 @@
     <main class="main-content container">
 
         <div class="booking-content">
-            <h1>City Bus Service</h1>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                scrambled it to make a type specimen book.</p>
+            <h1><span class="text-colorful">City Bus</span> Service</h1>
+            <h2>We Provide Comfortable Journey With <span class="text-highlight">Reasonable Fare</span></h2>
+            <button class="confirm-btn" type="button"><i class="fas fa-forward"></i> More Details</button>
         </div>
 
 
@@ -73,24 +72,30 @@
                     </div>
                     <div class="plus-minus-btn">
                         <!-- <p>+ - + -</p> -->
-                        <button onclick="handleTicketChange('firstclass',true)" type="button"><i class="fas fa-plus btn"></i></button>
-                        <button onclick="handleTicketChange('firstclass',false)" type="button"><i class="fas fa-minus btn"></i></button>
+                        <button class="update-btn-plus" onclick="handleTicketChange('firstclass',true)" type="button"><i
+                                class="fas fa-plus"></i></button>
+                        <button class="update-btn-minus" onclick="handleTicketChange('firstclass',false)" type="button"><i
+                                class="fas fa-minus"></i></button>
                     </div>
                 </div>
                 <div class="input-group f-class">
                     <div>
                         <label for="">Economy ($100)</label>
-                        <input id="economy-ticketcount" class="inp-style inp-width" name="ticket-count" value="0" type="number" disabled>
+                        <input id="economy-ticketcount" class="inp-style inp-width" name="ticket-count" value="0"
+                            type="number" disabled>
                     </div>
                     <div class="plus-minus-btn">
                         <!-- <p> <span>+</span> <span>-</span> </p> -->
-                        <button onclick="handleTicketChange('economy',true)" type="button"><i class="fas fa-plus btn"></i></button>
-                        <button onclick="handleTicketChange('economy',false)" type="button"><i class="fas fa-minus btn"></i></button>
+                        <button class="update-btn-plus" onclick="handleTicketChange('economy',true)" type="button"><i
+                                class="fas fa-plus"></i></button>
+                        <button class="update-btn-minus" onclick="handleTicketChange('economy',false)" type="button"><i
+                                class="fas fa-minus"></i></button>
                     </div>
                 </div>
 
             </div>
-            <div class="calculations">
+            <!-- Calculation Ticket Price -->
+            <div id="calculations" class="calculations">
                 <div class="amount">
                     <div class="left">
                         <p>Subtotal</p>
@@ -118,204 +123,122 @@
                     </div>
                 </div>
             </div>
-            <button id="order" class="btn-style">Book Now</button>
+            <button onclick="pop()" id="order" type="button" class="btn-style"><i class="fas fa-bus"></i> Book Now</button>
+        </div>
+
+        <!-- Confirmation Box -->
+
+        <div id="confirmation-box" class="order-message">
+            <img src="images/question.jpg" alt="question-mark">
+            <h1>Do you want to purchase tickets?</h1>
+            <button class="confirm-btn" onclick="confirm()">Confirm Order</button>
+            <button class="close-btn" onclick="pop()">Cancel Order</button>
+        </div>
+        <div id="confirmation-message" class="order-message">
+            <img src="images/thank-you1.png" alt="thank you message">
+            <h1>Thank you for order.</h1>
+            <button class="close-btn" onclick="confirm()">Close</button>
+
+        </div>
+        <div id="error-message" class="order-message">
+            <img src="images/bus1.png" alt="bus">
+            <h1>Please Select Number of Ticket</h1>
+            <button class="close-btn" onclick="closeNow()">Close</button>
         </div>
     </main>
 
 
     <script>
-        // here, two types of ticket quality, (1) firstclass and (2) economic
-        function handleTicketChange(ticketQuality, isIncrese){
+
+        // Here, two types of ticket quality, (1) firstclass and (2) economic
+        function handleTicketChange(ticketQuality, isIncrese) {
             var ticketInput = document.getElementById(ticketQuality + '-ticketcount');
             var ticketCount = parseInt(ticketInput.value);
             var ticketNewCount = ticketCount;
-            if(isIncrese == true){
-                ticketNewCount = ticketCount + 1;
+            if (isIncrese == true) {                // if isIncrese true then ticketCount increse by 1 
+                ticketNewCount = ticketCount + 1;   
             }
-            else if(isIncrese == false && ticketCount > 0){            
-                ticketNewCount = ticketCount - 1;
+            else if (isIncrese == false && ticketCount > 0) {   // If isIncrese false and value of ticketCount greater than 0,
+                ticketNewCount = ticketCount - 1;               // then ticketCount decrese by 1
             }
             ticketInput.value = ticketNewCount;
-
-            // var ticketUnitPrice = 0;
-            // if(ticketQuality == 'firstclass'){
-            //     ticketUnitPrice = 150;
-            // }
-            // else{
-            //     ticketUnitPrice = 100;
-            // }
-            // var ticketTotal = ticketUnitPrice * ticketNewCount;
-            // console.log(ticketTotal);
-            calculateFare();
+            calculateFare();    // calculateFare function call to find fare of ticket
         }
 
-        function calculateFare(){
-            var firstClassTicketCount = getTicketCount('firstclass');
+        function calculateFare() {
+            var firstClassTicketCount = getTicketCount('firstclass');   // Another function call to find quantity of ticket
             var economicTicketCount = getTicketCount('economy');
 
-            var firstClassUnitTicketPrice = 150;
+            var firstClassUnitTicketPrice = 150;    // here, we assume, unit ticket price of fastclass and economic class respectively $150 and $100.
             var economicUnitTicketPrice = 100;
 
 
             var subTotal = (firstClassTicketCount * firstClassUnitTicketPrice) + (economicTicketCount * economicUnitTicketPrice);
-            document.getElementById('sub-total').innerText = '$' + subTotal;
+            document.getElementById('sub-total').innerText = '$' + subTotal;   // calculate subtotal
 
             var vat = Math.round(subTotal * 0.1);
-            document.getElementById('vat').innerText = '$' + vat;
+            document.getElementById('vat').innerText = '$' + vat;   // calculate VAT(Value Added Tax)
 
             var total = subTotal + vat;
-            document.getElementById('total-amount').innerText = '$' + total;
+            document.getElementById('total-amount').innerText = '$' + total;    // calculate total ticket price
 
         }
-        function getTicketCount(ticketClass){
+        function getTicketCount(ticketClass) {      // here, getTicketCount function find to count of both class of ticket.
             var ticketInput = document.getElementById(ticketClass + '-ticketcount');
             var ticketCount = parseInt(ticketInput.value);
             return ticketCount;
         }
 
-
-
-        /* comment out
+        // ===================Confirmation message part.=============================
+        // ===========If a user clicked Booked-now button without selecting any ticket then an error message shows.============
         
-        function handleTicketChange(ticketQuality, isIncrese){
-            var ticketInput = document.getElementById(ticketQuality + '-ticketcount');
-            var ticketCount = parseInt(ticketInput.value);
-            var ticketNewCount = ticketCount;
-            if(isIncrese == true){
-                ticketNewCount = ticketCount + 1;
-            }
-            else if(isIncrese == false && ticketCount > 0){
-                ticketNewCount = ticketCount - 1;
-            }
-            ticketInput.value = ticketNewCount;
-
-            var ticketUnitPrice = 0;
-            if(ticketQuality == 'firstclass'){
-                ticketUnitPrice = 150;
-            }
-            else{
-                ticketUnitPrice = 100;
-            }
-            var ticketTotal = ticketUnitPrice * ticketNewCount;
-            console.log(ticketTotal);
-        }
-        */
+        var count = 0;
+        function pop() {
+            var totalAmount = document.getElementById('total-amount').innerText;
+            // var totalAmountNum = parseInt(totalAmount.innerText);
+            // console.log(totalAmount);
+            if (totalAmount == '$0') {
+                document.getElementById('error-message').style.display = "block";
+                count = 1;
 
 
-        /* Third section which is optimize
-        
-        function handleTicketChange(isIncrese) {
-            var ticketInput = document.getElementById('fastclass-ticketcount');
-            var ticketCount = parseInt(ticketInput.value);
-            // var ticketNewCount = ticketCount - 1;
-            var ticketNewCount = ticketCount;
-            if (isIncrese == true) {
-                ticketNewCount = ticketCount + 1;
             }
-            else if (isIncrese == false && ticketCount > 0) {
-                ticketNewCount = ticketCount - 1;
-            }
-            ticketInput.value = ticketNewCount;
 
-            var fastUnitPrice = 150;
-            var fastTotal = fastUnitPrice * ticketNewCount;
-            console.log(fastTotal);
+            ///
+            var display = document.getElementById('calculations').innerText;
+
+            /////
+            if (count == 0) {
+                document.getElementById('confirmation-box').style.display = "block";
+                count = 1;
+            }
+            else {
+                document.getElementById('confirmation-box').style.display = "none";
+                count = 0;
+            }
         }
 
-
-        function handleEcoTicketChange(isIncrese){
-            var ticketInput = document.getElementById('economy-ticketcount');
-            var ticketCount = parseInt(ticketInput.value);
-            var ticketNewCount = ticketCount;
-            if(isIncrese == true){
-                ticketNewCount = ticketCount + 1;
-            }
-            else if(isIncrese == false && ticketCount > 0){
-                ticketNewCount = ticketCount - 1;
-            }
-            ticketInput.value = ticketNewCount;
-
-            const ecoUnitPrice = 100;
-            var ecoTotal = ecoUnitPrice * ticketNewCount;
-            console.log(ecoTotal);
+        ///
+        function closeNow() {
+            document.getElementById('error-message').style.display = "none";
         }
-        */
+        ///
+        var condition = 0;
+        function confirm() {
+            if (condition == 0) {
+                document.getElementById('confirmation-message').style.display = "block";
+                document.getElementById('confirmation-box').style.display = "none";
+                condition = 1;
+            }
+            else {
+                document.getElementById('confirmation-message').style.display = "none";
+                document.getElementById('confirmation-box').style.display = "none";
+                condition = 0;
+            }
+        }
 
-        /*
-        // document.getElementById('ticket-increse').addEventListener('click', function () {
-        //     handleTicketChange(true);
-        // })
-
-        // document.getElementById('ticket-decrese').addEventListener('click', function () {
-        //     handleTicketChange(false);
-        // })
-
-
-        // document.getElementById('ticket-eco-increse').addEventListener('click', function(){
-        //     handleEcoTicketChange(true);
-        // })
-
-        // document.getElementById('ticket-eco-decrese').addEventListener('click', function(){
-        //     handleEcoTicketChange(false);
-        // })
-        */
-
-
-        /*second section which is optimize
-        document.getElementById('ticket-eco-increse').addEventListener('click', function(){
-            var ticketInput = document.getElementById('ticket-count-eco');
-            var ticketCount = parseInt(ticketInput.value);
-            var ticketNewCount = ticketCount + 1;
-            ticketInput.value = ticketNewCount;
-            console.log(ticketNewCount);
-
-            const ecoUnitPrice = 100;
-            var ecoTotal = ecoUnitPrice * ticketNewCount;
-            console.log(ecoTotal);
-        })
-
-        document.getElementById('ticket-eco-decrese').addEventListener('click', function(){
-            var ticketInput = document.getElementById('ticket-count-eco');
-            var ticketCount = parseInt(ticketInput.value);
-            var ticketNewCount = ticketCount - 1;
-            ticketInput.value = ticketNewCount;
-
-            const ecoUnitPrice = 100;
-            var ecoTotal = ecoUnitPrice * ticketNewCount;
-            console.log(ecoTotal);
-        })
-
-        */
-
-        
-
-        /* first section which is optimize
-
-        document.getElementById('ticket-increse').addEventListener('click', function(){
-            var ticketInput = document.getElementById('ticket-count');
-            var ticketCount = parseInt(ticketInput.value);
-            // console.log(ticketCount);
-            var ticketNewCount = ticketCount + 1;
-            // console.log(ticketNewCount);
-            ticketInput.value = ticketNewCount;
-
-            var fastUnitPrice = 150;
-            var fastTotal = fastUnitPrice * ticketNewCount;
-            // console.log(fastTotal);
-        })
-
-        document.getElementById('ticket-decrese').addEventListener('click', function(){
-            var ticketInput = document.getElementById('ticket-count');
-            var ticketCount = parseInt(ticketInput.value);
-            var ticketNewCount = ticketCount - 1;
-            ticketInput.value = ticketNewCount;
-
-            var fastUnitPrice = 150;
-            var fastTotal = fastUnitPrice * ticketNewCount;
-            console.log(fastTotal);
-        })
-        */
     </script>
+
 </body>
 
 </html>

@@ -102,29 +102,132 @@ nav ul li a:hover, a.active{
     min-width: 100px;
 }
 .plus-minus-btn{
-    color: #3352F2;
+    /* color: #3352F2; */
     font-size: 30px;
     padding: 2px;
-    margin: 10px 10px 0px 0px;
+    margin: 10px 10px 0px 10px;
     word-spacing: 20px;
 }
 .btn-style{
     display: block;
     width: 100%;
-    padding: 10px;
+    font-size: 20px;
+    padding: 15px;
     border-radius: 5px;
     border: none;
     color: #fff;
     font-weight: 500;
-    background-color:  #52AF3A;
+    background-color:  rgba(81, 175, 58, 0.747);
+    outline: none;
+    transition: all 500ms;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.btn-style:hover{
+    background-color:  rgba(81, 175, 58, 1);
 }
 .amount{
     display: flex;
     justify-content: space-between;
 }
 
+
 /********************* Some New Style Added *************************/
-.btn{
-    padding: 5px 7px;
+.text-highlight{
+    color: #f39c12;
+}
+.booking-content h2{
+    margin: 15px 0 10px 0;
+}
+.text-colorful{
+    color: #52AF3A;
+}
+.update-btn-plus,
+.update-btn-minus{
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+.update-btn-plus:hover{
+    background: #52AF3A;
+    color: #fff;
+}
+.update-btn-minus:hover{
+    background: red;
+    color: #fff;
+}
+.book-now-btn{
+    padding: 10px;
+}
+.order-message{
+    width: 500px;
+    height: 300px;
+    overflow: hidden;
+    
+    box-shadow: 0 0 20px black;
+    border-radius: 8px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 9999;
+    padding: 10px;
+    text-align: center;
+    display: none;
+}
+#confirmation-box{
+    background: #08C9F2;
+}
+#confirmation-box img,
+#error-message img{
+    height: 150px;
+    width: 250px;
+    /* border-radius: 50px 10px 50px 10px; */
+}
+#confirmation-box h1,
+#error-message h1{
+    margin: 0 0 20px 0;
 }
 
+
+#confirmation-message{
+    background: #607D9B;
+}  
+#confirmation-message h1{
+    margin: 7px 0;
+}
+#error-message{
+    background: #E1E2E4;
+}
+
+.confirm-btn{
+    background: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    font-size: 20px;
+    transition: all 500ms;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.confirm-btn:hover{
+    background: #2ecc71;
+    color: #fff;
+}
+.close-btn{
+    background: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    font-size: 20px;
+    transition: all 500ms;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.close-btn:hover{
+    background: red;
+    color: #fff;
+}
